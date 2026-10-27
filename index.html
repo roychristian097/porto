@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roy Christian — AI-Assisted Developer</title>
+  <meta name="description" content="Portofolio Roy Christian, mahasiswa Universitas Nasional, AI-Assisted Developer & Product Builder." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Floating pill nav -->
+  <nav class="pill-nav" id="nav">
+    <a href="#home" class="active" data-sec="home"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <a href="#about" data-sec="about"><i class="fa-regular fa-user"></i><span>About</span></a>
+    <a href="#skills" data-sec="skills"><i class="fa-solid fa-code"></i><span>Skills</span></a>
+    <a href="#projects" data-sec="projects"><i class="fa-regular fa-folder"></i><span>Projects</span></a>
+    <a href="#contact" data-sec="contact"><i class="fa-regular fa-envelope"></i><span>Contact</span></a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
+
+    <div class="hero-inner">
+      <div class="hero-text reveal">
+        <h1 class="hi">Hi, I'm</h1>
+        <h1 class="outline">ROY CHRISTIAN</h1>
+        <p class="lead">AI-Assisted Developer & Product Builder — mahasiswa undergraduate Universitas Nasional yang mengubah ide menjadi prototipe yang berjalan, cepat.</p>
+        <div class="stats-mini">
+          <div><b>2</b><span>Featured Projects</span></div>
+          <div><b>40+</b><span>API Endpoints</span></div>
+        </div>
+        <div class="cta">
+          <a href="#contact" class="btn light"><i class="fa-solid fa-paper-plane"></i> Hubungi Saya</a>
+          <a href="#projects" class="btn ghost">View Projects</a>
+        </div>
+        <div class="meta">
+          <span><i class="fa-regular fa-envelope"></i> roychristian402@gmail.com</span>
+          <span><i class="fa-solid fa-location-dot"></i> Jakarta, Indonesia</span>
+        </div>
+      </div>
+
+      <div class="avatar-wrap reveal">
+        <div class="ring"></div>
+        <div class="avatar" id="avatar">RC</div>
+      </div>
+    </div>
+    <a href="#about" class="mouse"><span></span></a>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="sec-head reveal">
+      <p class="kicker">// about me</p>
+      <h2 class="big-title">Engineering Digital Products with <span class="hl">Speed & Precision</span>.</h2>
+    </div>
+    <div class="about-text reveal">
+      <p>Sebagai software developer yang berorientasi pada produk dan efisiensi, saya merancang serta membangun aplikasi fungsional end-to-end — mulai dari antarmuka mobile berbasis <b>Flutter</b> hingga arsitektur backend REST API yang scalable menggunakan <b>Python FastAPI</b> dan ekosistem web modern <b>Next.js</b>.</p>
+      <p>Dengan mengintegrasikan alur kerja modern bersama akselerasi <b>AI tools</b> (ChatGPT, Claude, Gemini), saya berfokus pada arsitektur kode yang bersih, pemecahan masalah teknis secara terstruktur, serta pengiriman produk digital yang tangguh dan siap pakai.</p>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section">
+    <div class="sec-head reveal">
+      <p class="kicker">// toolbox</p>
+      <h2 class="big-title">Skills & Tools<span class="hl">.</span></h2>
+    </div>
+    <div class="skill-groups" id="skill-list"></div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+    <div class="sec-head reveal">
+      <p class="kicker">// selected work</p>
+      <h2 class="big-title">My Projects<span class="hl">.</span></h2>
+    </div>
+    <div id="featured"></div>
+    <div class="proj-grid" id="project-list"></div>
+  </section>
+
+  <!-- CONTACT / FOOTER -->
+  <section id="contact" class="contact">
+    <div class="contact-inner reveal">
+      <h2 class="talk">Hubungi Saya<br /><span class="outline-sm">Sekarang.</span></h2>
+      <div class="reach">
+        <a href="mailto:roychristian402@gmail.com"><i class="fa-regular fa-envelope"></i> Email</a>
+        <a href="https://github.com/roychristian097" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+        <a href="https://linkedin.com/in/roychristian260211" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+      </div>
+
+      <div class="foot-grid">
+        <div>
+          <h4>ROY CHRISTIAN</h4>
+          <p>AI-Assisted Developer & Product Builder.<br />Building things that work, fast.</p>
+        </div>
+        <div>
+          <h4>NAVIGATE</h4>
+          <a href="#home">→ Home</a><a href="#about">→ About</a><a href="#skills">→ Skills</a><a href="#projects">→ Projects</a>
+        </div>
+        <div>
+          <h4>INFO</h4>
+          <p>Kampus: Universitas Nasional</p>
+          <p>Lokasi: Jakarta, Indonesia</p>
+        </div>
+      </div>
+      <p class="copy">© 2026 Roy Christian · Built with AI ⚡</p>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
