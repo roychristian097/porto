@@ -3,7 +3,7 @@
 // ============================================================
 
 // Foto profil: isi path gambar (mis. "img/foto.jpg"), kosongkan untuk inisial "RC"
-const avatarImage = "";
+const avatarImage = "img/profile.jpg";
 
 // Daftar Proyek Unggulan
 const projects = [
