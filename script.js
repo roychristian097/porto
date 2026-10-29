@@ -243,3 +243,63 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     }, 750);
   });
 });
+
+// ============================================================
+// Interactive Contact Functions
+// ============================================================
+function copyEmail() {
+  const emailEl = document.getElementById("email-address");
+  if (!emailEl) return;
+  const emailText = emailEl.textContent.trim();
+
+  navigator.clipboard.writeText(emailText).then(() => {
+    const btn = document.getElementById("btn-copy-email");
+    if (!btn) return;
+    const origHTML = btn.innerHTML;
+    
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> <span>Tersalin!</span>';
+    btn.style.background = '#22c55e';
+    btn.style.color = '#0b131f';
+    btn.style.borderColor = '#22c55e';
+
+    setTimeout(() => {
+      btn.innerHTML = origHTML;
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }, 2200);
+  }).catch(() => {
+    prompt("Salin alamat email manual:", emailText);
+  });
+}
+
+function handleContactSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById("sender-name").value.trim();
+  const email = document.getElementById("sender-email").value.trim();
+  const subject = document.getElementById("sender-subject").value.trim();
+  const message = document.getElementById("sender-message").value.trim();
+  const feedback = document.getElementById("form-feedback");
+  const btn = document.getElementById("btn-submit-message");
+
+  if (!name || !email || !message) {
+    feedback.textContent = "Mohon lengkapi semua kolom yang wajib diisi.";
+    feedback.className = "form-feedback error";
+    return;
+  }
+
+  const mailtoSubject = encodeURIComponent(`[Portfolio Inquiry] ${subject || "Kolaborasi Proyek"} — dari ${name}`);
+  const mailtoBody = encodeURIComponent(
+    `Halo Roy,\n\nNama: ${name}\nKontak/Email: ${email}\nTopik: ${subject}\n\nPesan:\n${message}\n\n---\nDikirim melalui portofolio website Roy Christian`
+  );
+  const mailtoUrl = `mailto:roychristian402@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+  feedback.textContent = "Membuka aplikasi email Anda... 🚀";
+  feedback.className = "form-feedback success";
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Membuka Email...</span>';
+
+  setTimeout(() => {
+    window.location.href = mailtoUrl;
+    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Kirim Pesan Sekarang</span>';
+  }, 600);
+}

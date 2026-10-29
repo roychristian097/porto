@@ -82,32 +82,131 @@
     <div class="proj-grid" id="project-list"></div>
   </section>
 
-  <!-- CONTACT / FOOTER -->
+  <!-- CONTACT / GET IN TOUCH -->
   <section id="contact" class="contact">
     <div class="contact-inner reveal">
-      <h2 class="talk">Hubungi Saya<br /><span class="outline-sm">Sekarang.</span></h2>
-      <div class="reach">
-        <a href="mailto:roychristian402@gmail.com"><i class="fa-regular fa-envelope"></i> Email</a>
-        <a href="https://github.com/roychristian097" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
-        <a href="https://linkedin.com/in/roychristian260211" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+      
+      <!-- Section Header -->
+      <div class="contact-header">
+        <span class="contact-pill"><i class="fa-regular fa-paper-plane"></i> Let's Connect</span>
+        <h2 class="contact-title">Mulai Sebuah <span class="hl">Percakapan.</span></h2>
+        <p class="contact-desc">
+          Tertarik mendiskusikan potensi kolaborasi rekayasa perangkat lunak, pengembangan produk digital fungsional, atau bertukar ide seputar modern web & mobile architecture? Pintu komunikasi selalu terbuka.
+        </p>
       </div>
 
-      <div class="foot-grid">
-        <div>
-          <h4>ROY CHRISTIAN</h4>
-          <p>AI-Assisted Developer & Product Builder.<br />Building things that work, fast.</p>
+      <!-- 2-Column Contact Grid -->
+      <div class="contact-layout">
+        
+        <!-- Left: Quick Direct Channels -->
+        <div class="contact-channels">
+          
+          <!-- Channel 1: Email Box with 1-Click Copy -->
+          <div class="channel-card">
+            <div class="channel-top">
+              <div class="channel-icon"><i class="fa-regular fa-envelope"></i></div>
+              <div>
+                <h4>Direct Email</h4>
+                <p>Respon prioritas dalam kurun 24 jam</p>
+              </div>
+            </div>
+            <div class="email-copy-box">
+              <span class="email-text" id="email-address">roychristian402@gmail.com</span>
+              <button type="button" class="btn-copy-email" id="btn-copy-email" onclick="copyEmail()">
+                <i class="fa-regular fa-copy"></i>
+                <span id="copy-label">Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Channel 2: Profiles & Repository -->
+          <div class="channel-card">
+            <div class="channel-top">
+              <div class="channel-icon"><i class="fa-brands fa-github"></i></div>
+              <div>
+                <h4>Profil & Portofolio Kode</h4>
+                <p>Telusuri repository proyek dan rekam jejak teknis</p>
+              </div>
+            </div>
+            <div class="profile-links-row">
+              <a href="https://github.com/roychristian097" target="_blank" class="channel-btn">
+                <i class="fa-brands fa-github"></i> GitHub: @roychristian097
+              </a>
+              <a href="https://linkedin.com/in/roychristian260211" target="_blank" class="channel-btn">
+                <i class="fa-brands fa-linkedin"></i> LinkedIn Profile
+              </a>
+            </div>
+          </div>
+
+          <!-- Channel 3: Basis Operasional & Timezone -->
+          <div class="channel-card location-card">
+            <div class="channel-top">
+              <div class="channel-icon location"><i class="fa-solid fa-location-dot"></i></div>
+              <div>
+                <h4>Domisili & Zona Waktu</h4>
+                <p>Jakarta, Indonesia (WIB · UTC+7) — Terbuka untuk diskusi remote / hybrid</p>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div>
-          <h4>NAVIGATE</h4>
-          <a href="#home">→ Home</a><a href="#about">→ About</a><a href="#skills">→ Skills</a><a href="#projects">→ Projects</a>
+
+        <!-- Right: Send a Direct Message Form -->
+        <div class="contact-form-card">
+          <div class="form-card-header">
+            <i class="fa-regular fa-comment-dots"></i>
+            <h3>Kirim Pesan Langsung</h3>
+          </div>
+          <form id="direct-message-form" class="message-form" onsubmit="handleContactSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="sender-name">Nama Anda</label>
+                <input type="text" id="sender-name" placeholder="Mis. Budi Santoso" required />
+              </div>
+              <div class="form-group">
+                <label for="sender-email">Email Anda</label>
+                <input type="email" id="sender-email" placeholder="budi@example.com" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="sender-subject">Subjek / Topik Obrolan</label>
+              <input type="text" id="sender-subject" placeholder="Mis. Kolaborasi Proyek / Diskusi Tech Stack" required />
+            </div>
+
+            <div class="form-group">
+              <label for="sender-message">Isi Pesan / Pertanyaan</label>
+              <textarea id="sender-message" rows="4" placeholder="Tuliskan ide proyek, penawaran, atau pertanyaan Anda di sini..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-message" id="btn-submit-message">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Kirim Pesan Sekarang</span>
+            </button>
+            <p id="form-feedback" class="form-feedback"></p>
+          </form>
         </div>
-        <div>
-          <h4>INFO</h4>
-          <p>Kampus: Universitas Nasional</p>
-          <p>Lokasi: Jakarta, Indonesia</p>
-        </div>
+
       </div>
-      <p class="copy">© 2026 Roy Christian · Built with AI ⚡</p>
+
+      <!-- Footer Bottom Bar -->
+      <footer class="footer-bar">
+        <div class="foot-left">
+          <b>ROY CHRISTIAN</b>
+          <span>AI-Assisted Developer & Product Builder</span>
+        </div>
+        <div class="foot-nav">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="foot-copy">
+          © 2026 Roy Christian · Built with Precision ⚡
+        </div>
+      </footer>
+
     </div>
   </section>
 
