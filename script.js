@@ -98,89 +98,114 @@ const skillGroups = [
 ];
 
 // ============================================================
+// KONFIGURASI & KONSTANTA
+// ============================================================
+const NAV_OFFSET_PX = 70;
+const SCROLL_DURATION_MS = 750;
+const COPY_RESET_DURATION_MS = 2200;
+const EMAIL_REDIRECT_DELAY_MS = 600;
+
+// ============================================================
 // Render Logics
 // ============================================================
-const chips = arr => `<div class="chips">${arr.map(t => `<span class="chip">${t}</span>`).join("")}</div>`;
+const chips = arr => `<div class="chips">${(arr || []).map(t => `<span class="chip">${t}</span>`).join("")}</div>`;
 const links = p => {
-  if (!p.demo) return "";
+  if (!p || !p.demo) return "";
   return `<div class="links-row">
-    <a href="${p.demo}" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Demo</a>
+    <a href="${p.demo}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Demo</a>
   </div>`;
 };
 
-if (avatarImage) {
-  document.getElementById("avatar").innerHTML = `<img src="${avatarImage}" alt="Roy Christian">`;
+// Render Avatar
+const avatarEl = document.getElementById("avatar");
+if (avatarEl && avatarImage) {
+  avatarEl.innerHTML = `<img src="${avatarImage}" alt="Roy Christian">`;
 }
 
 // Render Featured Projects
-document.getElementById("featured").innerHTML = projects
-  .filter(p => p.featured)
-  .map(p => `
-    <article class="featured reveal">
-      <div class="visual ${p.visualClass || ""}">
-        ${p.image ? `<img src="${p.image}" alt="${p.title}">` : `<span class="ficon">${p.icon}</span>`}
-      </div>
-      <div class="info">
-        <div class="tag-row">${(p.tags || []).map((t, i) => `<span class="ftag ${i ? "alt" : ""}">${t}</span>`).join("")}</div>
-        <h3>${p.title}</h3>
-        <span class="sub">${p.subtitle}</span>
-        <p><b>Masalah:</b> ${p.problem}</p>
-        <p><b>Solusi:</b> ${p.solution}</p>
-        ${p.highlights ? `<ul class="hl-list">${p.highlights.map(h => `<li>${h}</li>`).join("")}</ul>` : ""}
-        <p><b>Peran:</b> ${p.role}</p>
-        ${chips(p.tech)}
-        ${links(p)}
-      </div>
-    </article>
-  `).join("");
+const featuredEl = document.getElementById("featured");
+if (featuredEl) {
+  featuredEl.innerHTML = projects
+    .filter(p => p.featured)
+    .map(p => `
+      <article class="featured reveal">
+        <div class="visual ${p.visualClass || ""}">
+          ${p.image ? `<img src="${p.image}" alt="${p.title}">` : `<span class="ficon">${p.icon}</span>`}
+        </div>
+        <div class="info">
+          <div class="tag-row">${(p.tags || []).map((t, i) => `<span class="ftag ${i ? "alt" : ""}">${t}</span>`).join("")}</div>
+          <h3>${p.title}</h3>
+          <span class="sub">${p.subtitle}</span>
+          <p><b>Masalah:</b> ${p.problem}</p>
+          <p><b>Solusi:</b> ${p.solution}</p>
+          ${p.highlights ? `<ul class="hl-list">${p.highlights.map(h => `<li>${h}</li>`).join("")}</ul>` : ""}
+          <p><b>Peran:</b> ${p.role}</p>
+          ${chips(p.tech)}
+          ${links(p)}
+        </div>
+      </article>
+    `).join("");
+}
 
 // Render Secondary Projects (jika ada)
 const secondary = projects.filter(p => !p.featured);
 const projectListEl = document.getElementById("project-list");
-if (secondary.length > 0) {
-  projectListEl.innerHTML = secondary.map(p => `
-    <article class="pcard reveal ${p.placeholder ? "placeholder" : ""}">
-      <div class="top"><span class="ico">${p.icon}</span><i class="fa-regular fa-folder-open" style="color:#555"></i></div>
-      <h4>${p.title}</h4>
-      <span class="sub" style="color:#8a8a8a;font-size:.8rem">${p.subtitle || ""}</span>
-      <p>${p.problem}</p>
-      ${chips(p.tech)}
-      ${links(p)}
-    </article>
-  `).join("");
-} else {
-  projectListEl.style.display = "none";
+if (projectListEl) {
+  if (secondary.length > 0) {
+    projectListEl.innerHTML = secondary.map(p => `
+      <article class="pcard reveal ${p.placeholder ? "placeholder" : ""}">
+        <div class="top"><span class="ico">${p.icon}</span><i class="fa-regular fa-folder-open" style="color:#555"></i></div>
+        <h4>${p.title}</h4>
+        <span class="sub" style="color:#8a8a8a;font-size:.8rem">${p.subtitle || ""}</span>
+        <p>${p.problem}</p>
+        ${chips(p.tech)}
+        ${links(p)}
+      </article>
+    `).join("");
+  } else {
+    projectListEl.style.display = "none";
+  }
 }
 
 // Render Skills
-document.getElementById("skill-list").innerHTML = skillGroups.map(g => `
-  <div class="sgroup reveal">
-    <h4>${g.title}</h4>
-    <div class="skill-items">
-      ${g.items.map(([ic, n, pct]) => `
-        <div class="skill-row">
-          <div class="skill-meta">
-            <span class="skill-name"><i class="${ic}"></i> ${n}</span>
-            <span class="skill-pct">${pct}%</span>
+const skillListEl = document.getElementById("skill-list");
+if (skillListEl) {
+  skillListEl.innerHTML = skillGroups.map(g => `
+    <div class="sgroup reveal">
+      <h4>${g.title}</h4>
+      <div class="skill-items">
+        ${g.items.map(([ic, n, pct]) => `
+          <div class="skill-row">
+            <div class="skill-meta">
+              <span class="skill-name"><i class="${ic}"></i> ${n}</span>
+              <span class="skill-pct">${pct}%</span>
+            </div>
+            <div class="skill-track">
+              <div class="skill-progress" style="width: ${pct}%;"></div>
+            </div>
           </div>
-          <div class="skill-track">
-            <div class="skill-progress" style="width: ${pct}%;"></div>
-          </div>
-        </div>
-      `).join("")}
+        `).join("")}
+      </div>
     </div>
-  </div>
-`).join("");
+  `).join("");
+}
 
-// Scroll Reveal (Pop-Out Observer)
-const io = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) e.target.classList.add("show");
-}), { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
+// Scroll Reveal (Pop-Out Observer with unobserve to save resources)
+const io = new IntersectionObserver((entries, observer) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add("show");
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
+
 document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
 // Active Nav Pill & Smooth Segment Transition
 const navLinks = document.querySelectorAll(".pill-nav a");
 let isAutoScrolling = false;
+let scrollTimeoutId = null;
 
 // Active pill detection during manual scroll
 const secObs = new IntersectionObserver(es => {
@@ -213,11 +238,11 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     }
 
     isAutoScrolling = true;
+    if (scrollTimeoutId) clearTimeout(scrollTimeoutId);
 
     // Smooth scroll position with fixed navbar offset
-    const navOffset = 70;
     const elementPosition = targetSec.getBoundingClientRect().top + window.pageYOffset;
-    const offsetPosition = Math.max(0, elementPosition - navOffset);
+    const offsetPosition = Math.max(0, elementPosition - NAV_OFFSET_PX);
 
     window.scrollTo({
       top: offsetPosition,
@@ -238,9 +263,9 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
       }, 70 * (index + 1));
     });
 
-    setTimeout(() => {
+    scrollTimeoutId = setTimeout(() => {
       isAutoScrolling = false;
-    }, 750);
+    }, SCROLL_DURATION_MS);
   });
 });
 
@@ -252,7 +277,7 @@ function copyEmail() {
   if (!emailEl) return;
   const emailText = emailEl.textContent.trim();
 
-  navigator.clipboard.writeText(emailText).then(() => {
+  const handleSuccess = () => {
     const btn = document.getElementById("btn-copy-email");
     if (!btn) return;
     const origHTML = btn.innerHTML;
@@ -267,20 +292,47 @@ function copyEmail() {
       btn.style.background = '';
       btn.style.color = '';
       btn.style.borderColor = '';
-    }, 2200);
-  }).catch(() => {
+    }, COPY_RESET_DURATION_MS);
+  };
+
+  const handleFallback = () => {
     prompt("Salin alamat email manual:", emailText);
-  });
+  };
+
+  // Safe check for clipboard support in secure context
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(emailText)
+      .then(handleSuccess)
+      .catch(handleFallback);
+  } else {
+    handleFallback();
+  }
+}
+
+// Pure helper function for testability
+function buildMailtoUrl(name, email, subject, message) {
+  const mailtoSubject = encodeURIComponent(`[Portfolio Inquiry] ${subject || "Kolaborasi Proyek"} — dari ${name}`);
+  const mailtoBody = encodeURIComponent(
+    `Halo Roy,\n\nNama: ${name}\nKontak/Email: ${email}\nTopik: ${subject}\n\nPesan:\n${message}\n\n---\nDikirim melalui portofolio website Roy Christian`
+  );
+  return `mailto:roychristian402@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
 }
 
 function handleContactSubmit(e) {
   e.preventDefault();
-  const name = document.getElementById("sender-name").value.trim();
-  const email = document.getElementById("sender-email").value.trim();
-  const subject = document.getElementById("sender-subject").value.trim();
-  const message = document.getElementById("sender-message").value.trim();
+  const nameEl = document.getElementById("sender-name");
+  const emailEl = document.getElementById("sender-email");
+  const subjectEl = document.getElementById("sender-subject");
+  const messageEl = document.getElementById("sender-message");
   const feedback = document.getElementById("form-feedback");
   const btn = document.getElementById("btn-submit-message");
+
+  if (!nameEl || !emailEl || !messageEl || !feedback || !btn) return;
+
+  const name = nameEl.value.trim();
+  const email = emailEl.value.trim();
+  const subject = subjectEl ? subjectEl.value.trim() : "";
+  const message = messageEl.value.trim();
 
   if (!name || !email || !message) {
     feedback.textContent = "Mohon lengkapi semua kolom yang wajib diisi.";
@@ -288,11 +340,10 @@ function handleContactSubmit(e) {
     return;
   }
 
-  const mailtoSubject = encodeURIComponent(`[Portfolio Inquiry] ${subject || "Kolaborasi Proyek"} — dari ${name}`);
-  const mailtoBody = encodeURIComponent(
-    `Halo Roy,\n\nNama: ${name}\nKontak/Email: ${email}\nTopik: ${subject}\n\nPesan:\n${message}\n\n---\nDikirim melalui portofolio website Roy Christian`
-  );
-  const mailtoUrl = `mailto:roychristian402@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+  // Prevent multiple rapid clicks (double submit)
+  btn.disabled = true;
+
+  const mailtoUrl = buildMailtoUrl(name, email, subject, message);
 
   feedback.textContent = "Membuka aplikasi email Anda... 🚀";
   feedback.className = "form-feedback success";
@@ -300,6 +351,11 @@ function handleContactSubmit(e) {
 
   setTimeout(() => {
     window.location.href = mailtoUrl;
+    btn.disabled = false;
     btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Kirim Pesan Sekarang</span>';
-  }, 600);
+  }, EMAIL_REDIRECT_DELAY_MS);
 }
+
+// Make handlers globally available for inline HTML listeners
+window.copyEmail = copyEmail;
+window.handleContactSubmit = handleContactSubmit;
